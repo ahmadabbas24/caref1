@@ -1,5 +1,5 @@
 // CareFirst site script: mobile menu, scroll effects, form validation, confirmation pages
-var WA_NUMBER = '923012542579';
+var WA_NUMBER = '923333045046';
 var STORE_KEY = 'carefirst_submission';
 
 // ---------- Mobile menu ----------
@@ -60,8 +60,8 @@ function checkField(el) {
   }
   if (rule === 'phone' || el.type === 'tel') {
     var digits = v.replace(/[\s\-()+]/g, '');
-    if (!/^\d+$/.test(digits)) return 'Use numbers only, e.g. 0301 2542579.';
-    if (!/^(03\d{9}|923\d{9}|00923\d{9})$/.test(digits)) return 'Enter a valid Pakistani mobile number, e.g. 0301 2542579.';
+    if (!/^\d+$/.test(digits)) return 'Use numbers only, e.g. 0333 3045046.';
+    if (!/^(03\d{9}|923\d{9}|00923\d{9})$/.test(digits)) return 'Enter a valid Pakistani mobile number, e.g. 0333 3045046.';
   }
   if (rule === 'age') {
     var n = Number(v);
@@ -206,3 +206,39 @@ if (document.querySelector('[data-fill]')) {
   });
   document.querySelectorAll('[data-wa]').forEach(function (a) { if (info.wa) a.href = info.wa; });
 }
+
+// ---------- Placeholder links (e.g. social pages not added yet) ----------
+document.querySelectorAll('[data-dummy]').forEach(function (a) {
+  a.addEventListener('click', function (e) { e.preventDefault(); });
+});
+
+// ---------- Newsletter ----------
+document.querySelectorAll('form.news-form').forEach(function (form) {
+  var input = form.querySelector('input[type=email]');
+  var box = form.querySelector('.news-field');
+  var msg = form.querySelector('.news-msg');
+  var btn = form.querySelector('button');
+  function setMsg(text, ok) {
+    msg.textContent = text;
+    msg.className = 'news-msg ' + (ok ? 'ok' : 'bad');
+    box.classList.toggle('invalid', !ok);
+    input.setAttribute('aria-invalid', ok ? 'false' : 'true');
+  }
+  input.addEventListener('input', function () {
+    if (box.classList.contains('invalid')) {
+      var bad = checkField(input);
+      if (!bad) { msg.textContent = ''; box.classList.remove('invalid'); }
+    }
+  });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value.trim();
+    if (!v) { setMsg('Please enter your email address.', false); input.focus(); return; }
+    var bad = checkField(input);
+    if (bad) { setMsg(bad, false); input.focus(); return; }
+    setMsg('Thank you for subscribing! We’ll send CareFirst updates to ' + v + '.', true);
+    input.value = '';
+    btn.textContent = 'Subscribed ✓';
+    setTimeout(function () { btn.textContent = 'Submit'; }, 4000);
+  });
+});
