@@ -1,0 +1,6 @@
+# Block direct web access to settings, code libraries, the SQL file and logs.
+Options -Indexes
+<FilesMatch "^(config\.php|database\.sql|make-admin\.sql|README\.md)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 403 ^.*/(includes|lib|storage)/
