@@ -724,5 +724,5 @@ a.svc h3{color:var(--navy)}
 .emore{margin-top:28px;display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;justify-content:center;text-align:center;border:2px dashed var(--line);border-radius:20px;padding:20px 24px}
 .emore p{margin:0;color:var(--muted)}
 .emore b{color:var(--navy)}
-@media (max-width:900px){.egrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.egrid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:720px){.egrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.egrid{grid-template-columns:minmax(0,1fr)}}
