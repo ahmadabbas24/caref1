@@ -101,7 +101,7 @@ function collect(form) {
   return { text: lines.join('\n'), data: data };
 }
 
-document.querySelectorAll('form.cform').forEach(function (form) {
+document.querySelectorAll('form.cform:not(.server)').forEach(function (form) {
   var err = form.querySelector('.err');
   var controls = form.querySelectorAll('input:not([type=radio]):not([type=checkbox]), select, textarea');
 
